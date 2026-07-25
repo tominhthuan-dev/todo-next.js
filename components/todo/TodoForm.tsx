@@ -29,6 +29,7 @@ export default function TodoForm({ onAddTodo, onUpdateTodo, editingTodo  }: Todo
              onUpdateTodo(title);
         } else {
             onAddTodo(title);
+            setTitle("");
         }
     };
 

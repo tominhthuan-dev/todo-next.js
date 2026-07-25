@@ -9,6 +9,5 @@ export default function DashboardPage() {
             <TodoContainer />
         </div>
     </div>
-    
   );
 }
