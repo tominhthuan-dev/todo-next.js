@@ -1,0 +1,194 @@
+.container {
+  min-height: 100vh;
+  padding: 40px;
+  background: #f5f7fb;
+  color: #1f2937;
+}
+
+/* Header */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.title {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.subtitle {
+  margin-top: 8px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* Card */
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+/* Table header */
+
+.tableHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.tableTitle {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.total {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* Table */
+
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  padding: 14px 16px;
+  text-align: left;
+  background: #f9fafb;
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 600;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.table td {
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+}
+
+.table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background: #f9fafb;
+}
+
+/* ID */
+
+.id {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* Username */
+
+.username {
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Role */
+
+.role {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.admin {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.user {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+/* Loading */
+
+.loading {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  font-size: 16px;
+}
+
+/* Error */
+
+.error {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #dc2626;
+  font-size: 16px;
+}
+
+/* Empty */
+
+.empty {
+  padding: 40px;
+  text-align: center;
+  color: #6b7280;
+}
+
+.logoutButton {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #dc2626;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.logoutButton:hover {
+  background: #b91c1c;
+}
+/* Responsive */
+
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .table th,
+  .table td {
+    padding: 12px;
+  }
+}
