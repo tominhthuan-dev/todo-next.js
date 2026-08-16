@@ -11,8 +11,6 @@ function getAccessToken() {
 
 // GET - Lấy Todo của user hiện tại
 export async function getTodos() {
-    
-
     const response = await apiClient(`/todos`, {
         method: "GET",
     });

@@ -1,63 +1,39 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import styles from "./page.module.css";
+import { useDispatch,useSelector } from "react-redux";
+import { loginRequest } from "@/redux/actions/authActions";
+import router from "next/dist/shared/lib/router/router";
 
 export default function LoginPage() {
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const {user, loading, error} = useSelector((state:any)=>state.auth);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+    useEffect(() => {
+        if (!user) return;
+        console.log("User:", user);
+    console.log("Role:", user.role);
+        if (user.role === "ADMIN") {
+           router.push("/admin/users");
+        } else {
+            router.push("/dashboard");
+        }
+    },[user, router]);
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+        dispatch(
+            loginRequest(username, password)
+        );
+    };
 
-    setError("");
-    setLoading(true);
-
-    try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username,
-          password,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Đăng nhập thất bại");
-      }
-    localStorage.setItem("accessToken", data.accessToken);
-    localStorage.setItem("refreshToken", data.refreshToken);
-    console.log("Login success");
-
-     localStorage.setItem("user",JSON.stringify(data.user));
-
-    console.log("Login success");   
-
-    if (data.user.role === "ADMIN") {
-        window.location.href = "/admin/users";
-    } else {
-        window.location.href = "/dashboard";
-    }
-
-    } catch (error) {
-      setError(
-        error instanceof Error
-          ? error.message
-          : "Đã xảy ra lỗi"
-      );
-    } finally {
-      setLoading(false);
-    }
-  }
 
   return (
     <main className={styles.container}>

@@ -4,12 +4,9 @@ export async function apiClient(
   url: string,
   options: RequestInit = {}
 ) {
-  const accessToken =
-    localStorage.getItem("accessToken");
+  const accessToken =localStorage.getItem("accessToken");
 
-  const headers = new Headers(
-    options.headers
-  );
+  const headers = new Headers(options.headers);
 
   if (accessToken) {
     headers.set(
@@ -27,46 +24,32 @@ export async function apiClient(
   );
 
   if (response.status === 401) {
-    const refreshToken =
-      localStorage.getItem("refreshToken");
+    const refreshToken = localStorage.getItem("refreshToken");
 
     if (!refreshToken) {
-      throw new Error(
-        "Refresh Token không tồn tại"
-      );
+      throw new Error("Refresh Token không tồn tại");
     }
 
     const refreshResponse =
-      await fetch(
-        `${BASE_URL}/auth/refresh`,
+      await fetch(`${BASE_URL}/auth/refresh`,
         {
           method: "POST",
           headers: {
             "Content-Type":
               "application/json",
           },
-          body: JSON.stringify({
-            refreshToken,
-          }),
+          body: JSON.stringify({refreshToken}),
         }
       );
 
     if (!refreshResponse.ok) {
-      localStorage.removeItem(
-        "accessToken"
-      );
+      localStorage.removeItem("accessToken")
+      localStorage.removeItem("refreshToken");
 
-      localStorage.removeItem(
-        "refreshToken"
-      );
-
-      throw new Error(
-        "Session expired"
-      );
+      throw new Error( "Session expired");
     }
 
-    const data =
-      await refreshResponse.json();
+    const data =await refreshResponse.json();
 
     localStorage.setItem(
       "accessToken",

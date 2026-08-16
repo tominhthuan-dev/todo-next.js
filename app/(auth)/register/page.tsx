@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
+import styles from "./register.module.css"; 
 
 export default function RegisterPage() {
   const [username, setUsername] = useState("");
@@ -80,72 +81,70 @@ export default function RegisterPage() {
   }
 
   return (
-    <main>
-      <h1>Đăng ký</h1>
-
-      <form onSubmit={handleSubmit}>
-        {/* Username */}
-        <div>
-          <label htmlFor="username"> Username </label>
-          <input
-            id="username"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Nhập username"
-            disabled={loading}
-          />
+    <main className={styles.page}>
+      <div className={styles.card}>
+        <div className={styles.header}>
+          <h1>Đăng ký</h1>
+          <p>Tạo tài khoản TodoList</p>
         </div>
 
-        {/* Password */}
-        <div>
-          <label htmlFor="password"> Password</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Nhập password"
-            disabled={loading}
-          />
+        <form className={styles.form} onSubmit={handleSubmit}>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="username">Username</label>
+
+            <input
+              id="username"
+              type="text"
+              value={username}
+              onChange={(e) =>
+                setUsername(e.target.value)
+              }
+              placeholder="Nhập username"
+              required
+            />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="password">Password</label>
+
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) =>
+                setPassword(e.target.value)
+              }
+              placeholder="Nhập password"
+              required
+            />
+          </div>
+
+          {error && (
+            <p className={styles.error}>
+              {error}
+            </p>
+          )}
+
+          {success && (
+            <p className={styles.success}>
+              {success}
+            </p>
+          )}
+
+          <button className={styles.button} type="submit" disabled={loading}>
+            {loading
+              ? "Đang đăng ký..."
+              : "Đăng ký"}
+          </button>
+
+        </form>
+
+        <div className={styles.footer}>
+          <span>Đã có tài khoản?</span>
+          <Link href="/login">Đăng nhập</Link>
         </div>
-
-        {/* Confirm Password */}
-        <div>
-          <label htmlFor="confirmPassword"> Xác nhận password </label>
-          <input
-            id="confirmPassword"
-            type="password"
-            value={confirmPassword}
-            onChange={(e) =>
-              setConfirmPassword(e.target.value)
-            }
-            placeholder="Nhập lại password"
-            disabled={loading}
-          />
-        </div>
-
-        {/* Error */}
-        {error && (
-          <p>
-            {error}
-          </p>
-        )}
-
-        {/* Success */}
-        {success && (
-          <p>
-            {success}
-          </p>
-        )}
-
-        {/* Submit */}
-        <button type="submit" disabled={loading}>
-          {loading ? "Đang đăng ký..." : "Đăng ký"}
-        </button>
-      </form>
-
-      <p>Đã có tài khoản?{" "} <Link href="/login">Đăng nhập</Link></p>
+      </div>
     </main>
   );
 }
